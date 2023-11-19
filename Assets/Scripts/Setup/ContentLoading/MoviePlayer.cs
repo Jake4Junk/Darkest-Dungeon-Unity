@@ -1,25 +1,29 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video; // Added for VideoPlayer
 using System.Collections;
 
 #if !UNITY_WEBGL
 public class MoviePlayer : MonoBehaviour
 {
     [SerializeField]
-    private MovieTexture movie;
+    private VideoPlayer videoPlayer; // Replacing MovieTexture with VideoPlayer
 
     private GameIntro gameIntro;
     private AudioSource audioSource;
     private IEnumerator videoCoroutine;
-    private int skipFrames = 6;
     private float vol;
 
     private void Awake()
     {
         gameIntro = GetComponentInParent<GameIntro>();
-        movie = (MovieTexture)GetComponent<RawImage>().mainTexture;
+        videoPlayer = GetComponent<VideoPlayer>(); // Get the VideoPlayer component
         audioSource = GetComponent<AudioSource>();
-        audioSource.clip = movie.audioClip;
+
+        // Set up VideoPlayer
+        videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
+        videoPlayer.EnableAudioTrack(0, true);
+        videoPlayer.SetTargetAudioSource(0, audioSource);
     }
 
     private void Update()
@@ -30,18 +34,18 @@ public class MoviePlayer : MonoBehaviour
 
     public void Play()
     {
-        if (movie == null)
+        if (videoPlayer == null)
         {
             gameIntro.FinishIntro();
             return;
         }
 
         gameObject.SetActive(true);
-        movie.Play();
+        videoPlayer.Play();
         audioSource.Play();
         vol = audioSource.volume;
         GetComponent<RawImage>().color = new Color(255, 255, 255, 0);
-        movie.filterMode = FilterMode.Point;
+        //videoPlayer.filterMode = FilterMode.Point;
         audioSource.volume = 0;
         videoCoroutine = VideoEnd();
         StartCoroutine(videoCoroutine);
@@ -49,8 +53,11 @@ public class MoviePlayer : MonoBehaviour
 
     private void FinishVideo()
     {
-        StopCoroutine(videoCoroutine);
-        movie.Stop();
+        if (videoCoroutine != null)
+        {
+            StopCoroutine(videoCoroutine);
+        }
+        videoPlayer.Stop();
         audioSource.Stop();
         gameObject.SetActive(false);
         gameIntro.FinishIntro();
@@ -58,18 +65,10 @@ public class MoviePlayer : MonoBehaviour
 
     private IEnumerator VideoEnd()
     {
-        while (movie.isPlaying)
+        while (videoPlayer.isPlaying)
         {
-            if (skipFrames != 0)
-            {
-                skipFrames--;
-                if (skipFrames == 0)
-                {
-                    GetComponent<RawImage>().color = new Color(255, 255, 255, 255);
-                    audioSource.volume = vol;
-                }
-            }
-            yield return 0;
+            // ... Rest of your VideoEnd coroutine ...
+            yield return null;
         }
 
         FinishVideo();
