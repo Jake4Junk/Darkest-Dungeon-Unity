@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
+using Spine.Unity;
 public enum DungeonSceneState { Room, Hall }
 public enum StartingMode { Normal, EntranceEncounter, EntranceCurio }
 public enum RoomTransitionType { Entrance, FromHallway, PeacefulLoad, CombatLoad, Retreat, Teleport }
@@ -2473,7 +2473,7 @@ public class RaidSceneManager : MonoBehaviour
                         Formations.PartyBuffPositions.SetSpacing(120, 1f);
                         for (int i = 0; i < TempList.Count; i++)
                             if (TempList[i].Character.Class != mutationData[i].TypeId)
-                                TempList[i].CurrentState.MeshRenderer.enabled = false;
+                                TempList[i].CurrentState.GetComponent<SkeletonRenderer>().enabled = false;
                         yield return new WaitForSeconds(1.2f);
                         DungeonCamera.Zoom(DungeonCamera.StandardFOV, 0.1f);
                         DungeonCamera.SwitchBlur(false);
@@ -5363,8 +5363,8 @@ public class RaidSceneManager : MonoBehaviour
             {
                 effect.SkeletonAnimation.state.SetAnimation(0, "heroic", false);
                 effect.BindToTarget(areaView.Prop.RectTransform, (areaView.Prop as RaidCurio).SkeletonAnimation, "root");
-                effect.SkeletonAnimation.MeshRenderer.sortingOrder = (areaView.Prop as RaidCurio).
-                    SkeletonAnimation.MeshRenderer.sortingOrder - 1;
+                effect.SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = (areaView.Prop as RaidCurio).
+                    SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder - 1;
             }
         }
         yield return new WaitForSeconds(2f);
@@ -5594,7 +5594,7 @@ public class RaidSceneManager : MonoBehaviour
         }
         DungeonCamera.Zoom(50, 0.1f);
         yield return new WaitForSeconds(0.10f);
-        raidTrap.SkeletonAnimation.MeshRenderer.enabled = true;
+        raidTrap.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = true;
         Formations.InvestigateTrapIntro(raidTrap, isDisarmed);
         Formations.HeroesAttackMeleePosition.SetUnitTarget(trapTarget, 0.05f, new Vector2(200, 0));
         Formations.MonstersAttackMeleePosition.SetTrap(raidTrap, 0.05f, new Vector2(-200, -60));
@@ -5608,7 +5608,7 @@ public class RaidSceneManager : MonoBehaviour
                 AnimatedEffect effect = Instantiate(animationObject).GetComponent<AnimatedEffect>();
                 if (effect != null)
                 {
-                    effect.SkeletonAnimation.MeshRenderer.sortingOrder = raidTrap.SkeletonAnimation.MeshRenderer.sortingOrder - 1;
+                    effect.SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = raidTrap.SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder - 1;
                     effect.SkeletonAnimation.state.SetAnimation(0, "heroic", false);
                     effect.BindToTarget(raidTrap.RectTransform, raidTrap.SkeletonAnimation, "root");
                 }
@@ -5808,7 +5808,7 @@ public class RaidSceneManager : MonoBehaviour
         }
 
         if (raidObstacle.SkeletonAnimation.state.GetCurrent(0) != null)
-            yield return new WaitForSeconds(raidObstacle.SkeletonAnimation.state.GetCurrent(0).EndTime - timeWasted);
+            yield return new WaitForSeconds(raidObstacle.SkeletonAnimation.state.GetCurrent(0).TrackComplete - timeWasted);
 
         QuestPanel.EnableRetreat();
         Inventory.SetPeacefulState(false);

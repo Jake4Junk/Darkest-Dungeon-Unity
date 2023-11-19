@@ -111,7 +111,7 @@ public class RaidPartyController : MonoBehaviour
                     {
                         if (unit.SkeletonAnimations[2].state.GetCurrent(0) != null)
                         {
-                            unit.SkeletonAnimations[2].state.GetCurrent(0).Time = 0;
+                            unit.SkeletonAnimations[2].state.GetCurrent(0).TrackTime = 0;
                             unit.SkeletonAnimations[2].state.Update(0);
                         }
                     }
@@ -122,8 +122,8 @@ public class RaidPartyController : MonoBehaviour
                     if (trackEntry.Loop)
                     {
                         trackEntry.Loop = false;
-                        trackEntry.LastTime = trackEntry.LastTime % trackEntry.EndTime;
-                        trackEntry.Time = trackEntry.Time % trackEntry.EndTime;
+                        trackEntry.TrackEnd = trackEntry.TrackEnd % trackEntry.TrackComplete;
+                        trackEntry.TrackTime = trackEntry.TrackTime % trackEntry.TrackComplete;
                     }
 
                     if (unit.SkeletonAnimations[3].timeScale < 4f)

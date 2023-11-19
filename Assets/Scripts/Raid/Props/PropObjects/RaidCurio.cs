@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Spine.Unity;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class RaidCurio : RaidProp, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
@@ -27,7 +28,7 @@ public class RaidCurio : RaidProp, IPointerEnterHandler, IPointerExitHandler, IP
 
     public override void SetSortingOrder(int order)
     {
-        SkeletonAnimation.MeshRenderer.sortingOrder = order;
+        SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = order;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

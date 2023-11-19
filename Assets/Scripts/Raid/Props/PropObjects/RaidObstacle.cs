@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-
+using Spine.Unity;
 public class RaidObstacle : RaidProp
 {
     public SkeletonAnimation SkeletonAnimation { get; set; }
@@ -22,7 +22,7 @@ public class RaidObstacle : RaidProp
         Removed = true;
         SkeletonAnimation.state.SetAnimation(0, "clear", false);
         if(SkeletonAnimation.gameObject.name.StartsWith("thorny_thicket"))
-            SkeletonAnimation.state.GetCurrent(0).Time = 0.2f;
+            SkeletonAnimation.state.GetCurrent(0).TrackTime = 0.2f;
     }
 
     public override void SetSortingOrder(int order)

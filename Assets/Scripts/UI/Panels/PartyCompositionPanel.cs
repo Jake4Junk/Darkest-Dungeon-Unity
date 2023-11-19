@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
-
+using Spine.Unity;
 public class PartyCompositionPanel : MonoBehaviour
 {
     [SerializeField]
@@ -36,10 +36,10 @@ public class PartyCompositionPanel : MonoBehaviour
     public void ResetAnimation()
     {
         if (compAnimation.Skeleton == null)
-            compAnimation.Reset();
+            compAnimation.Skeleton.SetToSetupPose();
 
-        compAnimation.state.SetAnimation(0, "combo", false).Time = 0;
+        compAnimation.state.SetAnimation(0, "combo", false).TrackTime = 0;
         compAnimation.Update(0);
-        compAnimation.state.SetAnimation(0, "combo", false).Time = 0;
+        compAnimation.state.SetAnimation(0, "combo", false).TrackTime = 0;
     }
 }

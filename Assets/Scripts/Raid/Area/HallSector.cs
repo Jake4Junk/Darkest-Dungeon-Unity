@@ -1,5 +1,5 @@
 ﻿using UnityEngine.Assertions;
-
+using Spine.Unity;
 public class HallSector : Area
 {
     public Hallway Hallway { get; set; }
@@ -86,7 +86,7 @@ public class HallSector : Area
                     return;
 
                 var raidSector = RaidSceneManager.HallwayView.RaidHallway.HallSectors.Find(trapSector => trapSector.HallSector == this);
-                ((RaidTrap)raidSector.Prop).SkeletonAnimation.MeshRenderer.enabled = true;
+                ((RaidTrap)raidSector.Prop).SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = true;
             }
         }
     }

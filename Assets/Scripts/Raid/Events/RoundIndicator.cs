@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+using Spine.Unity;
 public class RoundIndicator : MonoBehaviour
 {
     [SerializeField]
@@ -15,7 +15,7 @@ public class RoundIndicator : MonoBehaviour
 
     private void Awake()
     {
-        Indicator.Reset();
+        Indicator.Skeleton.SetToSetupPose();
         gameObject.SetActive(false);
     }
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-
+using Spine.Unity;
 public class FormationUnit : MonoBehaviour
 {
     public FormationParty Party { get; set; }
@@ -388,7 +388,7 @@ public class FormationUnit : MonoBehaviour
 
         CurrentHalo.gameObject.SetActive(true);
         CurrentHalo.BindToTarget(this, CurrentState, "fxhead");
-        CurrentHalo.SkeletonAnimation.MeshRenderer.sortingOrder = CurrentState.MeshRenderer.sortingOrder + 1;
+        CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = CurrentState.GetComponent<SkeletonRenderer>().sortingOrder + 1;
         CurrentHalo.gameObject.layer = CurrentState.gameObject.layer;
 
         switch (haloAnimation)
@@ -454,7 +454,7 @@ public class FormationUnit : MonoBehaviour
             if (activate)
             {
                 skillAnimation.Reset();
-                skillAnimation.state.SetAnimation(0, skillInfo.ArtId + "_" + mode, false).Time = 0;
+                skillAnimation.state.SetAnimation(0, skillInfo.ArtId + "_" + mode, false).TrackTime = 0;
                 skillAnimation.Update(0);
                 skillAnimation.AnimationName = skillInfo.ArtId + "_" + mode;
             }
@@ -483,7 +483,7 @@ public class FormationUnit : MonoBehaviour
             if (effect != null)
             {
                 effect.IsLooping = true;
-                effect.SkeletonAnimation.MeshRenderer.sortingOrder = CurrentState.MeshRenderer.sortingOrder + 1;
+                effect.SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = CurrentState.GetComponent<SkeletonRenderer>().sortingOrder + 1;
                 effect.BindToTarget(this, CurrentState, "fxskill");
                 effect.gameObject.layer = CurrentState.gameObject.layer;
                 effect.SkeletonAnimation.Reset();
@@ -506,7 +506,7 @@ public class FormationUnit : MonoBehaviour
                 AnimatedEffect effect = Instantiate(animationObject).GetComponent<AnimatedEffect>();
                 if (effect != null)
                 {
-                    effect.SkeletonAnimation.MeshRenderer.sortingOrder = CurrentState.MeshRenderer.sortingOrder + 1;
+                    effect.SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = CurrentState.GetComponent<SkeletonRenderer>().sortingOrder + 1;
                     effect.BindToTarget(this, CurrentState, fxTarget);
                     effect.gameObject.layer = CurrentState.gameObject.layer;
                 }
@@ -525,7 +525,7 @@ public class FormationUnit : MonoBehaviour
                 AnimatedEffect effect = Instantiate(animationObject).GetComponent<AnimatedEffect>();
                 if (effect != null)
                 {
-                    effect.SkeletonAnimation.MeshRenderer.sortingOrder = CurrentState.MeshRenderer.sortingOrder + 1;
+                    effect.SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = CurrentState.GetComponent<SkeletonRenderer>().sortingOrder + 1;
                     effect.BindToTargetUnit(this, CurrentState, "fxchest");
                     effect.gameObject.layer = CurrentState.gameObject.layer;
                 }
@@ -547,7 +547,7 @@ public class FormationUnit : MonoBehaviour
             AnimatedEffect effect = Instantiate(animationObject).GetComponent<AnimatedEffect>();
             if (effect != null)
             {
-                effect.SkeletonAnimation.MeshRenderer.sortingOrder = CurrentState.MeshRenderer.sortingOrder + 1;
+                effect.SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = CurrentState.GetComponent<SkeletonRenderer>().sortingOrder + 1;
                 effect.SkeletonAnimation.Reset();
                 effect.BindToTarget(this, CurrentState, fxTarget);
                 effect.SkeletonAnimation.state.SetAnimation(0, subEffect, false);

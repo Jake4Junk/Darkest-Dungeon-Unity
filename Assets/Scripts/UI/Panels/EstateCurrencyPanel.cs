@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-
+using Spine.Unity;
 public delegate void EstateCurrencyChanged(string currency);
 
 public class EstateCurrencyPanel : MonoBehaviour

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
+using Spine.Unity;
 public class RaidEvents : MonoBehaviour
 {
     [SerializeField]
@@ -116,7 +116,7 @@ public class RaidEvents : MonoBehaviour
         itemInteraction.Initialize();
         itemInteraction.OnScrollOpened += RaidSceneManager.Instanse.DisablePartyMovement;
 
-        battleAnnouncment.Reset();
+        battleAnnouncment.Skeleton.SetToSetupPose();
     }
 
     public void ShowPopupMessage(FormationUnit unit, PopupMessageType type, string parameter = "", float ripOffset = 0)
@@ -383,8 +383,8 @@ public class RaidEvents : MonoBehaviour
         {
             battleAnnouncment.Skeleton.SetToSetupPose();
             battleAnnouncment.AnimationName = "start";
-            battleAnnouncment.state.GetCurrent(0).Time = 0;
-            battleAnnouncment.state.SetAnimation(0, "start", false).Time = 0;
+            battleAnnouncment.state.GetCurrent(0).TrackTime = 0;
+            battleAnnouncment.state.SetAnimation(0, "start", false).TrackTime = 0;
             battleAnnouncment.Update(0);
         }
         else

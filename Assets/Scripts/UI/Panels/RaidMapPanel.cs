@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
-
+using Spine.Unity;
 public class RaidMapPanel : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]

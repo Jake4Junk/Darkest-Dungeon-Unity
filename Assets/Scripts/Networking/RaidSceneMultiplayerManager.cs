@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
+using Spine.Unity;
 public class RaidSceneMultiplayerManager : RaidSceneManager
 {
     [SerializeField]
@@ -723,7 +723,7 @@ public class RaidSceneMultiplayerManager : RaidSceneManager
                         Formations.PartyBuffPositions.SetSpacing(120, 1f);
                         for (int i = 0; i < TempList.Count; i++)
                             if (TempList[i].Character.Class != mutationData[i].TypeId)
-                                TempList[i].CurrentState.MeshRenderer.enabled = false;
+                                TempList[i].CurrentState.GetComponent<SkeletonRenderer>().enabled = false;
                         yield return new WaitForSeconds(1.2f);
                         DungeonCamera.Zoom(DungeonCamera.StandardFOV, 0.1f);
                         DungeonCamera.SwitchBlur(false);

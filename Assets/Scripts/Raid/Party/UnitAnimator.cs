@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
+using Spine.Unity;
 public class UnitAnimator : MonoBehaviour
 {
     public Animator Animator;
@@ -12,20 +12,20 @@ public class UnitAnimator : MonoBehaviour
     {
         if(Effects != null)
         foreach (var skelAnim in Effects)
-            skelAnim.MeshRenderer.sortingOrder = 9;
+            skelAnim.GetComponent<SkeletonRenderer>().sortingOrder = 9;
 
         foreach (var skelAnim in SkeletonAnimations)
-                skelAnim.MeshRenderer.sortingOrder = 8;
+                skelAnim.GetComponent<SkeletonRenderer>().sortingOrder = 8;
     }
 
     public void SetSortingOrder(int order)
     {
         foreach (var skelAnim in SkeletonAnimations)
-                skelAnim.MeshRenderer.sortingOrder = order;
+                skelAnim.GetComponent<SkeletonRenderer>().sortingOrder = order;
 
         if (Effects != null)
             foreach (var effectAnim in Effects)
-                effectAnim.MeshRenderer.sortingOrder = order + 1;
+                effectAnim.GetComponent<SkeletonRenderer>().sortingOrder = order + 1;
     }
 
     public void Reset(int animatorIndex)
@@ -38,8 +38,8 @@ public class UnitAnimator : MonoBehaviour
             {
                 SkeletonAnimations[animatorIndex].Skeleton.SetToSetupPose();
                 SkeletonAnimations[animatorIndex].AnimationName = SkeletonAnimations[animatorIndex].name;
-                SkeletonAnimations[animatorIndex].state.GetCurrent(0).Time = 0;
-                SkeletonAnimations[animatorIndex].state.SetAnimation(0, SkeletonAnimations[animatorIndex].name, false).Time = 0;
+                SkeletonAnimations[animatorIndex].state.GetCurrent(0).TrackTime = 0;
+                SkeletonAnimations[animatorIndex].state.SetAnimation(0, SkeletonAnimations[animatorIndex].name, false).TrackTime = 0;
                 SkeletonAnimations[animatorIndex].Update(0);
             }
             else
@@ -75,14 +75,14 @@ public class UnitAnimator : MonoBehaviour
             SkeletonAnimations[1].Reset();
 
         SkeletonAnimations[1].AnimationName = "death";
-        SkeletonAnimations[1].state.SetAnimation(0, "death", false).Time = 0;
+        SkeletonAnimations[1].state.SetAnimation(0, "death", false).TrackTime = 0;
     }
 
     public void TransformHuman()
     {
         if (SkeletonAnimations[14].Skeleton == null)
             SkeletonAnimations[14].Reset();
-        SkeletonAnimations[14].state.SetAnimation(0, "attack_transform_human", false).Time = 0;
+        SkeletonAnimations[14].state.SetAnimation(0, "attack_transform_human", false).TrackTime = 0;
         SkeletonAnimations[14].Update(0);
         SkeletonAnimations[14].AnimationName = "attack_transform_human";
     }
@@ -91,7 +91,7 @@ public class UnitAnimator : MonoBehaviour
     {
         if (SkeletonAnimations[14].Skeleton == null)
             SkeletonAnimations[14].Reset();
-        SkeletonAnimations[14].state.SetAnimation(0, "attack_transform_beast", false).Time = 0;
+        SkeletonAnimations[14].state.SetAnimation(0, "attack_transform_beast", false).TrackTime = 0;
         SkeletonAnimations[14].Update(0);
         SkeletonAnimations[14].AnimationName = "attack_transform_beast";
     }
@@ -103,11 +103,11 @@ public class UnitAnimator : MonoBehaviour
 
         if (SkeletonAnimations[0].AnimationName != "combat_human")
         {
-            SkeletonAnimations[0].state.SetAnimation(0, "combat_human", false).Time = 0;
+            SkeletonAnimations[0].state.SetAnimation(0, "combat_human", false).TrackTime = 0;
             SkeletonAnimations[0].Update(0);
         }
 
-        SkeletonAnimations[0].state.SetAnimation(0, "combat_human", true).Time = 0;
+        SkeletonAnimations[0].state.SetAnimation(0, "combat_human", true).TrackTime = 0;
     }
 
     public void CombatBeast()
@@ -117,11 +117,11 @@ public class UnitAnimator : MonoBehaviour
 
         if (SkeletonAnimations[0].AnimationName != "combat_beast")
         {
-            SkeletonAnimations[0].state.SetAnimation(0, "combat_beast", false).Time = 0;
+            SkeletonAnimations[0].state.SetAnimation(0, "combat_beast", false).TrackTime = 0;
             SkeletonAnimations[0].Update(0);
         }
 
-        SkeletonAnimations[0].state.SetAnimation(0, "combat_beast", true).Time = 0;
+        SkeletonAnimations[0].state.SetAnimation(0, "combat_beast", true).TrackTime = 0;
     }
 
     public void HeroicBeast()
@@ -129,7 +129,7 @@ public class UnitAnimator : MonoBehaviour
         if (SkeletonAnimations[6].skeleton == null)
             SkeletonAnimations[6].Reset();
 
-        SkeletonAnimations[6].state.SetAnimation(0, "heroic_beast", false).Time = 0;
+        SkeletonAnimations[6].state.SetAnimation(0, "heroic_beast", false).TrackTime = 0;
         SkeletonAnimations[6].Update(0);
         SkeletonAnimations[6].AnimationName = "heroic_beast";
     }
@@ -139,7 +139,7 @@ public class UnitAnimator : MonoBehaviour
         if(SkeletonAnimations[6].skeleton == null)
             SkeletonAnimations[6].Reset();
 
-        SkeletonAnimations[6].state.SetAnimation(0, "heroic_human", false).Time = 0;
+        SkeletonAnimations[6].state.SetAnimation(0, "heroic_human", false).TrackTime = 0;
         SkeletonAnimations[6].Update(0);
         SkeletonAnimations[6].AnimationName = "heroic_human";
     }
@@ -148,7 +148,7 @@ public class UnitAnimator : MonoBehaviour
     {
         if (SkeletonAnimations[1].Skeleton == null)
             SkeletonAnimations[1].Reset();
-        SkeletonAnimations[1].state.SetAnimation(0, "defend_human", false).Time = 0;
+        SkeletonAnimations[1].state.SetAnimation(0, "defend_human", false).TrackTime = 0;
         SkeletonAnimations[1].Update(0);
         SkeletonAnimations[1].AnimationName = "defend_human";
     }
@@ -157,7 +157,7 @@ public class UnitAnimator : MonoBehaviour
     {
         if (SkeletonAnimations[1].Skeleton == null)
             SkeletonAnimations[1].Reset();
-        SkeletonAnimations[1].state.SetAnimation(0, "defend_beast", false).Time = 0;
+        SkeletonAnimations[1].state.SetAnimation(0, "defend_beast", false).TrackTime = 0;
         SkeletonAnimations[1].Update(0);
         SkeletonAnimations[1].AnimationName = "defend_beast";
     }
@@ -166,7 +166,7 @@ public class UnitAnimator : MonoBehaviour
     {
         if (SkeletonAnimations[1].Skeleton == null)
             SkeletonAnimations[1].Reset();
-        SkeletonAnimations[1].state.SetAnimation(0, "death_human", false).Time = 0;
+        SkeletonAnimations[1].state.SetAnimation(0, "death_human", false).TrackTime = 0;
         SkeletonAnimations[1].Update(0);
         SkeletonAnimations[1].AnimationName = "death_human";
     }
@@ -175,7 +175,7 @@ public class UnitAnimator : MonoBehaviour
     {
         if (SkeletonAnimations[1].Skeleton == null)
             SkeletonAnimations[1].Reset();
-        SkeletonAnimations[1].state.SetAnimation(0, "death_beast", false).Time = 0;
+        SkeletonAnimations[1].state.SetAnimation(0, "death_beast", false).TrackTime = 0;
         SkeletonAnimations[1].Update(0);
         SkeletonAnimations[1].AnimationName = "death_beast";
     }
@@ -186,6 +186,6 @@ public class UnitAnimator : MonoBehaviour
             SkeletonAnimations[index].Reset();
 
         SkeletonAnimations[index].AnimationName = "death";
-        SkeletonAnimations[index].state.SetAnimation(0, "death", false).Time = 0;
+        SkeletonAnimations[index].state.SetAnimation(0, "death", false).TrackTime = 0;
     }
 }

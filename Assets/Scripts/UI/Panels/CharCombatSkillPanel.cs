@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
+using Spine.Unity;
 public class CharCombatSkillPanel : MonoBehaviour
 {
     [SerializeField]
@@ -30,12 +30,12 @@ public class CharCombatSkillPanel : MonoBehaviour
         var canvas = GetComponentInParent<Canvas>();
         for (int i = 0; i < teamStrengthPips.Count; i++)
         {
-            teamStrengthPips[i].MeshRenderer.sortingOrder = canvas.sortingOrder + 1;
-            targetStrengthPips[i].MeshRenderer.sortingOrder = canvas.sortingOrder + 1;
+            teamStrengthPips[i].GetComponent<SkeletonRenderer>().sortingOrder = canvas.sortingOrder + 1;
+            targetStrengthPips[i].GetComponent<SkeletonRenderer>().sortingOrder = canvas.sortingOrder + 1;
             teamStrengthPips[i].Reset();
-            teamStrengthPips[i].Update();
+            teamStrengthPips[i].Update(Time.deltaTime);
             targetStrengthPips[i].Reset();
-            targetStrengthPips[i].Update();
+            targetStrengthPips[i].Update(Time.deltaTime);
         }
     }
 

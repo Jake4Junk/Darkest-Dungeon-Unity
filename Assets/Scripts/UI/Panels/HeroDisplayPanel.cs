@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-
+using Spine.Unity;
 public class HeroDisplayPanel : MonoBehaviour
 {
     [SerializeField]
@@ -15,7 +15,7 @@ public class HeroDisplayPanel : MonoBehaviour
         Light = GetComponentInChildren<Light>();
         var canvas = GetComponentInParent<Canvas>();
         for (int i = 0; i < heroes.Count; i++)
-            heroes[i].MeshRenderer.sortingOrder = canvas.sortingOrder + 1;
+            heroes[i].GetComponent<SkeletonRenderer>().sortingOrder = canvas.sortingOrder + 1;
     }
 
     public void UpdateDisplay(Hero hero)

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Spine.Unity;
 public class AnimatedEffect : MonoBehaviour
 {
     [SerializeField]
@@ -10,6 +10,7 @@ public class AnimatedEffect : MonoBehaviour
     private Transform currentTransform;
 
     public SkeletonAnimation SkeletonAnimation { get { return skeletonAnimation; } }
+    public int sortingOrder;
     public bool IsLooping { private get; set; }
 
     private FormationUnit followUnit;
@@ -33,7 +34,7 @@ public class AnimatedEffect : MonoBehaviour
             follower.followBoneRotation = false;
             follower.followZPosition = true;
             follower.bone = followUnit.CurrentState.Skeleton.FindBone(followBoneName);
-            SkeletonAnimation.MeshRenderer.sortingOrder = followUnit.CurrentState.MeshRenderer.sortingOrder + 1;
+            SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = followUnit.CurrentState.GetComponent<SkeletonRenderer>().sortingOrder + 1;
         }
     }
 
@@ -53,7 +54,7 @@ public class AnimatedEffect : MonoBehaviour
         follower.enabled = false;
         Destroy(follower);
 
-        SkeletonAnimation.MeshRenderer.sortingOrder = effectAnimation.MeshRenderer.sortingOrder + 1;
+        SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = effectAnimation.GetComponent<SkeletonRenderer>().sortingOrder + 1;
     }
 
     public void BindToTarget(FormationUnit unit, SkeletonAnimation effectAnimation, string boneName)
@@ -67,7 +68,7 @@ public class AnimatedEffect : MonoBehaviour
         follower.followBoneRotation = false;
         follower.followZPosition = true;
         follower.bone = effectAnimation.Skeleton.FindBone(boneName);
-        SkeletonAnimation.MeshRenderer.sortingOrder = effectAnimation.MeshRenderer.sortingOrder + 1;
+        SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = effectAnimation.GetComponent<SkeletonRenderer>().sortingOrder + 1;
         currentTransform.SetParent(unit.RectTransform, false);
     }
 
@@ -79,7 +80,7 @@ public class AnimatedEffect : MonoBehaviour
         follower.followBoneRotation = false;
         follower.followZPosition = true;
         follower.bone = effectAnimation.Skeleton.FindBone(boneName);
-        SkeletonAnimation.MeshRenderer.sortingOrder = effectAnimation.MeshRenderer.sortingOrder + 1;
+        SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = effectAnimation.GetComponent<SkeletonRenderer>().sortingOrder + 1;
         currentTransform.SetParent(rect, false);
     }
 }

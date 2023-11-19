@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
+using Spine.Unity;
 public interface IRaidArea : IPointerClickHandler
 {
     RaidProp Prop { get; }
@@ -140,7 +140,7 @@ public class RaidHallSector : MonoBehaviour, IRaidArea
                 Prop.RectTransform.SetAsLastSibling();
 
                 if (Area.Knowledge == Knowledge.Hidden || Area.Knowledge == Knowledge.Visited)
-                    trap.SkeletonAnimation.MeshRenderer.enabled = false;
+                    trap.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = false;
                 break;
             default:
                 if (Prop != null)

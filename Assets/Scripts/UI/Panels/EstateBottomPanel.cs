@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Spine.Unity;
 public class EstateBottomPanel : MonoBehaviour
 {
     [SerializeField]

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Spine.Unity;
 public class PartyFormationManager : MonoBehaviour
 {
     [SerializeField]
@@ -229,7 +229,7 @@ public class PartyFormationManager : MonoBehaviour
     public void HeroResolveCheckIntro(FormationUnit unit, bool isHeroic)
     {
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = false;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = false;
 
         unit.SetLayer(9);
         unit.SetSortingOrder(ShowoffOrder);
@@ -253,13 +253,13 @@ public class PartyFormationManager : MonoBehaviour
         else
             unit.SetAfflicted(false);
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = true;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = true;
     }
 
     public void UnitSkillIntro(FormationUnit unit, SkillArtInfo skillArtInfo)
     {
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = false;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = false;
 
         unit.SetLayer(9);
         unit.SetSortingOrder(ShowoffOrder + 6);
@@ -271,7 +271,7 @@ public class PartyFormationManager : MonoBehaviour
     public void UnitSkillIntro(FormationUnit unit, string skillArtId)
     {
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = false;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = false;
 
         unit.SetLayer(9);
         unit.SetSortingOrder(ShowoffOrder + 6);
@@ -283,7 +283,7 @@ public class PartyFormationManager : MonoBehaviour
     public void UnitSkillIntroOverriden(FormationUnit unit, SkillArtInfo skillArtInfo, string mode)
     {
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = false;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = false;
 
         unit.SetLayer(9);
         unit.SetSortingOrder(ShowoffOrder + 6);
@@ -295,7 +295,7 @@ public class PartyFormationManager : MonoBehaviour
     public void UnitDefendIntro(FormationUnit unit)
     {
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = false;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = false;
 
         unit.SetLayer(9);
         if(unit.Character.RenderRankOverride == 0)
@@ -309,7 +309,7 @@ public class PartyFormationManager : MonoBehaviour
     public void UnitBuffedIntro(FormationUnit unit)
     {
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = false;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = false;
 
         unit.SetLayer(9);
         if (unit.Character.RenderRankOverride == 0)
@@ -330,7 +330,7 @@ public class PartyFormationManager : MonoBehaviour
         if (unit.CombatInfo.IsImmobilized)
             unit.SetDefendAnimation(true);
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = true;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = true;
     }
 
     public void UnitSkillOutro(FormationUnit unit, string skillArtId)
@@ -345,7 +345,7 @@ public class PartyFormationManager : MonoBehaviour
         if (unit.CombatInfo.IsImmobilized)
             unit.SetDefendAnimation(true);
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = true;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = true;
     }
 
     public void UnitSkillOutroOverriden(FormationUnit unit, SkillArtInfo skillArtInfo, string mode)
@@ -360,7 +360,7 @@ public class PartyFormationManager : MonoBehaviour
         if (unit.CombatInfo.IsImmobilized)
             unit.SetDefendAnimation(true);
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = true;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = true;
     }
 
     public void UnitDefendOutro(FormationUnit unit)
@@ -376,7 +376,7 @@ public class PartyFormationManager : MonoBehaviour
             unit.SetDefendAnimation(false);
 
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = true;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = true;
     }
 
     public void UnitBuffedOutro(FormationUnit unit)
@@ -389,7 +389,7 @@ public class PartyFormationManager : MonoBehaviour
         unit.DeleteTarget(0.1f);
 
         if (unit.CurrentHalo != null)
-            unit.CurrentHalo.SkeletonAnimation.MeshRenderer.enabled = true;
+            unit.CurrentHalo.SkeletonAnimation.GetComponent<SkeletonRenderer>().enabled = true;
     }
 
     #endregion

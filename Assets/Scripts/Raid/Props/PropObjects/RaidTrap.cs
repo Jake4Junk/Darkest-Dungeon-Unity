@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-
+using Spine.Unity;
 public class RaidTrap : RaidProp, IPointerEnterHandler, IPointerExitHandler
 {
     public SkeletonAnimation SkeletonAnimation { get; set; }
@@ -25,7 +25,7 @@ public class RaidTrap : RaidProp, IPointerEnterHandler, IPointerExitHandler
 
     public override void SetSortingOrder(int order)
     {
-        SkeletonAnimation.MeshRenderer.sortingOrder = order;
+        SkeletonAnimation.GetComponent<SkeletonRenderer>().sortingOrder = order;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

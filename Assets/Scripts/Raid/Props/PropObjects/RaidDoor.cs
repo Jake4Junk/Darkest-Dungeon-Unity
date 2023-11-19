@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-
+﻿using Spine.Unity;
+using UnityEngine;
 public class RaidDoor : RaidProp
 {
     private SkeletonAnimation SkeletonAnimation { get; set; }

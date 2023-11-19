@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using Spine.Unity;
 public enum CompletionAction
 {
     Waiting,

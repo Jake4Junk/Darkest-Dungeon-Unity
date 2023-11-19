@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using System.Text;
-
+using Spine.Unity;
 public enum TorchRangeType
 {
     Out, Dark, Dim, Shadowy, Radiant
