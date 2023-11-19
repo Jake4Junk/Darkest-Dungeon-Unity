@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ExitGames.Client.Photon.Chat;
+using Photon.Chat;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,6 +23,7 @@ using UnityEngine.UI;
 /// </remarks>
 public class ChatGui : MonoBehaviour, IChatClientListener
 {
+
 	public string[] ChannelsToJoinOnConnect; // set in inspector. Demo channels to join automatically.
 	
 	public string[] FriendsList;
@@ -59,7 +60,7 @@ public class ChatGui : MonoBehaviour, IChatClientListener
 	
 	// private static string WelcomeText = "Welcome to chat. Type \\help to list commands.";
 	private static string HelpText = "\n    -- HELP --\n" +
-		"To subscribe to channel(s):\n" +
+		"To subscribe to channel(s) (channelNames are case sensitive):\n" +
 			"\t<color=#E07B00>\\subscribe</color> <color=green><list of channelnames></color>\n" +
 			"\tor\n" +
 			"\t<color=#E07B00>\\s</color> <color=green><list of channelnames></color>\n" +
@@ -74,7 +75,7 @@ public class ChatGui : MonoBehaviour, IChatClientListener
 			"\tor\n" +
 			"\t<color=#E07B00>\\j</color> <color=green><channelname></color>\n" +
 			"\n" +
-			"To send a private message:\n" +
+			"To send a private message (username are case sensitive):\n" +
 			"\t\\<color=#E07B00>msg</color> <color=green><username></color> <color=green><message></color>\n" +
 			"\n" +
 			"To change status:\n" +
@@ -129,7 +130,7 @@ public class ChatGui : MonoBehaviour, IChatClientListener
         #if !UNITY_WEBGL
         this.chatClient.UseBackgroundWorkerForSending = true;
         #endif
-        this.chatClient.Connect(PhotonNetwork.PhotonServerSettings.ChatAppID, "1.0", new ExitGames.Client.Photon.Chat.AuthenticationValues(UserName));
+        this.chatClient.Connect(PhotonNetwork.PhotonServerSettings.ChatAppID, "1.0", new Photon.Chat.AuthenticationValues(UserName));
 		
 		this.ChannelToggleToInstantiate.gameObject.SetActive(false);
 		Debug.Log("Connecting as: " + UserName);
@@ -535,8 +536,18 @@ public class ChatGui : MonoBehaviour, IChatClientListener
 			if ( _friendItem!=null) _friendItem.OnFriendStatusUpdate(status,gotMessage,message);
 		}
 	}
-	
-	public void AddMessageToSelectedChannel(string msg)
+
+    public void OnUserSubscribed(string channel, string user)
+    {
+        Debug.LogFormat("OnUserSubscribed: channel=\"{0}\" userId=\"{1}\"", channel, user);
+    }
+
+    public void OnUserUnsubscribed(string channel, string user)
+    {
+        Debug.LogFormat("OnUserUnsubscribed: channel=\"{0}\" userId=\"{1}\"", channel, user);
+    }
+
+    public void AddMessageToSelectedChannel(string msg)
 	{
 		ChatChannel channel = null;
 		bool found = this.chatClient.TryGetChannel(this.selectedChannelName, out channel);
@@ -548,7 +559,7 @@ public class ChatGui : MonoBehaviour, IChatClientListener
 		
 		if (channel != null)
 		{
-			channel.Add("Bot", msg);
+			channel.Add("Bot", msg, channel.LastMsgId);
 		}
 	}
 	

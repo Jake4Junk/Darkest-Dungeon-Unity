@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI; // Added for UI.Text
+using UnityEngine.UI;
+
+#pragma warning disable 618
 
 public class DemoBoxesGui : MonoBehaviour
 {
     public bool HideUI = false;
 
-    /// <summary>A GUI element to show tips in.</summary>
-    public Text GuiTextForTips; // Changed from GUIText to Text
-
+    public Text GuiTextForTips;
+    
     private int tipsIndex;
 
     private readonly string[] tips = new[]
                                      {
-                                        "Click planes to instantiate boxes.",
+                                         "Click planes to instantiate boxes.",
                                          "Click a box to send an RPC. This will flash the box.",
                                          "Double click a box to destroy it. If it's yours.",
                                          "Boxes send ~10 updates per second when moving.",
@@ -40,6 +41,7 @@ public class DemoBoxesGui : MonoBehaviour
         this.timeSinceLastTip += Time.deltaTime;
         if (this.timeSinceLastTip > TimePerTip)
         {
+            this.timeSinceLastTip = 0;
             StartCoroutine("SwapTip"); // this does the fading. the coroutine ends when fading is done.
         }
     }
@@ -52,16 +54,16 @@ public class DemoBoxesGui : MonoBehaviour
         {
             alpha -= FadeSpeedForTip;
             this.timeSinceLastTip = 0;
-            this.GuiTextForTips.color = new Color(this.GuiTextForTips.color.r, this.GuiTextForTips.color.g, this.GuiTextForTips.color.b, alpha); // Adjusted for UI.Text
+            this.GuiTextForTips.color = new Color(this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, alpha);
             yield return null;
         }
-        this.tipsIndex = (this.tipsIndex + 1) % this.tips.Length;
-        this.GuiTextForTips.text = this.tips[this.tipsIndex]; // Text assignment remains the same
+        this.tipsIndex = (this.tipsIndex + 1)%this.tips.Length;
+        this.GuiTextForTips.text = this.tips[this.tipsIndex];
         while (alpha < 1.0f)
         {
             alpha += FadeSpeedForTip;
             this.timeSinceLastTip = 0;
-            this.GuiTextForTips.color = new Color(this.GuiTextForTips.color.r, this.GuiTextForTips.color.g, this.GuiTextForTips.color.b, alpha); // Adjusted for UI.Text
+            this.GuiTextForTips.color = new Color(this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, this.GuiTextForTips.color.r, alpha);
             yield return null;
         }
     }

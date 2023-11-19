@@ -123,4 +123,5 @@ public class RpsDemoConnect : PunBehaviour
 	{
 		Debug.Log("OnPhotonPlayerActivityChanged() for "+otherPlayer.NickName+" IsInactive: "+otherPlayer.IsInactive);
 	}
+
 }

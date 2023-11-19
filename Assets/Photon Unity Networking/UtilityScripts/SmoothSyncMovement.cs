@@ -50,4 +50,5 @@ public class SmoothSyncMovement : Photon.MonoBehaviour, IPunObservable
             transform.rotation = Quaternion.Lerp(transform.rotation, correctPlayerRot, Time.deltaTime * this.SmoothingDelay);
         }
     }
+
 }
